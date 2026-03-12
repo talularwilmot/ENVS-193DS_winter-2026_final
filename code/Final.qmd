@@ -21,8 +21,10 @@ library(readxl)
 library(tidyverse)
 library(dplyr)
 library(readr)
+library(ggeffects)
 #read in data from data folder 
 kelp <- read.csv("~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/Annual_Kelp_All_Years_20250903.csv")
+Personal <- read_csv("~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/My Data ES 193 - Sheet1.csv")
 ```
 
 
@@ -108,15 +110,76 @@ Isla Vista has the most variable kelp fronds per year showing the highest peaks 
 
 ## a. Comparing visualizations 
 
+How are the visualizations different from each other in the way you have represented your data?
+
+In my exploratory analysis I only compared 1 variable at a time, however in my affective visualization I chose to represent a multitude of variables. 
+
+What similarities do you see between all your visualizations?
+
+I see a similar trend between all my visuals in my data showing a kind of scattered distribution with a possible linear trend, as mileage increases. 
+
+What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
+
+I see a possible parabolic trend of my data through the distances that I ran. From 0- 4 miles my paces seemed to increase but then above that I seem to have possibly rounded a bend and gotten quicker. However It could also potentially be a linear trend with some outliers as I have only done a few longer distance runs. This trend is shown both in my exploratory and affective visualization, but my other exploratory visualization was based off of a categorical variable and it doesn't show any explicit trends other than running tended to be the most frequent workout type. 
+
+What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
+
+During week 9 the feedback I got from my peer reviewers was to increase detail on the foreground of my visualization, potentially using the location where I always run as a sort of nature landscape, and I implemented those suggestions into my painting. I did not receive any feedback on including additional variables or really structurally changing the work on my index card feedbacks. 
+
 ## b. Designing an analysis 
+
+One analysis that I could apply to my research question is a linear regression. This is appropriate for my question because I would assume that especially as a beginner runner my pace would slow with the addition of miles and I am interested to test if that assumption is true. Additionally both of my variables are continuous. 
 
 ## c. Check any assumptions and run an analysis 
 
+### run analysis 
+
+```{r}
+personal_clean <- clean_names(Personal) #clean the names of personal data to only include lower case and remove spaces 
+running_data <- personal_clean %>% #use to personal_clean data and filter to only include rows with the workout type equal to running 
+  filter(workout_type == "Running") #filter the data to only include running observations
+running_model <- lm(as.numeric(pace) ~ distance_mi, #use pace as dependent and milage as predictor
+                    data = running_data) #select from filtered data set 
+summary(running_model) #display summary 
+```
+
+### check assumptions 
+
+```{r}
+par(mfrow = c(2,2)) #show plots in 2 by 2 grid 
+plot(running_model) #create diagnostic plots for our running model
+```
+
 ## d. Create a visualization 
+```{r}
+running_preds <- ggpredict(running_model, terms = "distance_mi")
+ggplot(data = running_data, 
+       aes(x = distance_mi, 
+           y = pace)) + 
+  geom_point(color = "darkcyan") + 
+  geom_ribbon(data = running_preds, 
+              aes(x = x, 
+                  y = predicted, 
+                  ymin = conf.low, 
+                  ymax = conf.high),
+                  alpha = 0.1, 
+              color = "orange") + 
+  geom_line(data = running_preds, 
+            aes(x = x, 
+                y = predicted), 
+            linewidth = 1) + 
+  labs(x = "Distance (mi)", 
+       y = "Pace (hr:mm:ss)") + 
+  theme_minimal()
+```
 
 ## e. Write a caption 
 
+**Figure 1. Linear regression of running vs. pace with 95% confidence interval** Blue dots represent underlying data of average pace for duration of run. Orange lines outlining ribbon represent the upper and lower confidence interval for predicted linear relationship. Black line represents predicted linear equation. Data was collected by Author and access via CSV download. 
+
 ## f. Write about your results 
+
+The pace increased as distance increased (linear regression: F(1,17) = 8.573, R^2^ = 0.3, p = 0.009, $\alpha$ = 0.05) Based on model predictions for every 1 unit increase in distance we expect to see an increase in pace of 9.6 seconds +/- 3.3 seconds. While the model did show significance the R^2^ being 0.3 means that not much of the variation in the model was explained by a linear regression. 
 
 ## g. Sharing affective visualization 
 

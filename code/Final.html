@@ -130,7 +130,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#a.-comparing-visualizations" id="toc-a.-comparing-visualizations" class="nav-link" data-scroll-target="#a.-comparing-visualizations">a. Comparing visualizations</a></li>
   <li><a href="#b.-designing-an-analysis" id="toc-b.-designing-an-analysis" class="nav-link" data-scroll-target="#b.-designing-an-analysis">b. Designing an analysis</a></li>
-  <li><a href="#c.-check-any-assumptions-and-run-an-analysis" id="toc-c.-check-any-assumptions-and-run-an-analysis" class="nav-link" data-scroll-target="#c.-check-any-assumptions-and-run-an-analysis">c.&nbsp;Check any assumptions and run an analysis</a></li>
+  <li><a href="#c.-check-any-assumptions-and-run-an-analysis" id="toc-c.-check-any-assumptions-and-run-an-analysis" class="nav-link" data-scroll-target="#c.-check-any-assumptions-and-run-an-analysis">c.&nbsp;Check any assumptions and run an analysis</a>
+  <ul class="collapse">
+  <li><a href="#run-analysis" id="toc-run-analysis" class="nav-link" data-scroll-target="#run-analysis">run analysis</a></li>
+  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions">check assumptions</a></li>
+  </ul></li>
   <li><a href="#d.-create-a-visualization" id="toc-d.-create-a-visualization" class="nav-link" data-scroll-target="#d.-create-a-visualization">d.&nbsp;Create a visualization</a></li>
   <li><a href="#e.-write-a-caption" id="toc-e.-write-a-caption" class="nav-link" data-scroll-target="#e.-write-a-caption">e. Write a caption</a></li>
   <li><a href="#f.-write-about-your-results" id="toc-f.-write-about-your-results" class="nav-link" data-scroll-target="#f.-write-about-your-results">f.&nbsp;Write about your results</a></li>
@@ -176,8 +180,10 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data from data folder </span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>kelp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/Annual_Kelp_All_Years_20250903.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data from data folder </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>kelp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/Annual_Kelp_All_Years_20250903.csv"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Personal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/My Data ES 193 - Sheet1.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="problem-1.-research-writing" class="level1">
 <h1>Problem 1. Research Writing</h1>
@@ -233,11 +239,11 @@ window.Quarto = {
 <pre><code># A tibble: 5 × 3
   site_name    year mean_fronds
   &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
-1 Naples       2009        5.44
-2 Isla Vista   2007       23.6 
-3 Carpinteria  2002        9.79
-4 Isla Vista   2006       11.6 
-5 Carpinteria  2015        5.03</code></pre>
+1 Naples       2004        7.81
+2 Carpinteria  2010        3.53
+3 Isla Vista   2009       30.2 
+4 Isla Vista   2017       25.0 
+5 Carpinteria  2018        4.21</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kelp_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -290,21 +296,105 @@ window.Quarto = {
 <h1>Problem 3. Data Analysis</h1>
 <section id="a.-comparing-visualizations" class="level2">
 <h2 class="anchored" data-anchor-id="a.-comparing-visualizations">a. Comparing visualizations</h2>
+<p>How are the visualizations different from each other in the way you have represented your data?</p>
+<p>In my exploratory analysis I only compared 1 variable at a time, however in my affective visualization I chose to represent a multitude of variables.</p>
+<p>What similarities do you see between all your visualizations?</p>
+<p>I see a similar trend between all my visuals in my data showing a kind of scattered distribution with a possible linear trend, as mileage increases.</p>
+<p>What patterns (e.g.&nbsp;differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?</p>
+<p>I see a possible parabolic trend of my data through the distances that I ran. From 0- 4 miles my paces seemed to increase but then above that I seem to have possibly rounded a bend and gotten quicker. However It could also potentially be a linear trend with some outliers as I have only done a few longer distance runs. This trend is shown both in my exploratory and affective visualization, but my other exploratory visualization was based off of a categorical variable and it doesn’t show any explicit trends other than running tended to be the most frequent workout type.</p>
+<p>What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.</p>
+<p>During week 9 the feedback I got from my peer reviewers was to increase detail on the foreground of my visualization, potentially using the location where I always run as a sort of nature landscape, and I implemented those suggestions into my painting. I did not receive any feedback on including additional variables or really structurally changing the work on my index card feedbacks.</p>
 </section>
 <section id="b.-designing-an-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="b.-designing-an-analysis">b. Designing an analysis</h2>
+<p>One analysis that I could apply to my research question is a linear regression. This is appropriate for my question because I would assume that especially as a beginner runner my pace would slow with the addition of miles and I am interested to test if that assumption is true. Additionally both of my variables are continuous.</p>
 </section>
 <section id="c.-check-any-assumptions-and-run-an-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="c.-check-any-assumptions-and-run-an-analysis">c.&nbsp;Check any assumptions and run an analysis</h2>
+<section id="run-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-analysis">run analysis</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>personal_clean <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(Personal) <span class="co">#clean the names of personal data to only include lower case and remove spaces </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>running_data <span class="ot">&lt;-</span> personal_clean <span class="sc">%&gt;%</span> <span class="co">#use to personal_clean data and filter to only include rows with the workout type equal to running </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(workout_type <span class="sc">==</span> <span class="st">"Running"</span>) <span class="co">#filter the data to only include running observations</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>running_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(pace) <span class="sc">~</span> distance_mi, <span class="co">#use pace as dependent and milage as predictor</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> running_data) <span class="co">#select from filtered data set </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(running_model) <span class="co">#display summary </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = as.numeric(pace) ~ distance_mi, data = running_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-31.1319 -12.1076   0.4964  13.5715  28.2359 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  616.506     10.854  56.800  &lt; 2e-16 ***
+distance_mi    9.588      3.275   2.928  0.00939 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 16.4 on 17 degrees of freedom
+Multiple R-squared:  0.3352,    Adjusted R-squared:  0.2961 
+F-statistic: 8.573 on 1 and 17 DF,  p-value: 0.009388</code></pre>
+</div>
+</div>
+</section>
+<section id="check-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="check-assumptions">check assumptions</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#show plots in 2 by 2 grid </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(running_model) <span class="co">#create diagnostic plots for our running model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="d.-create-a-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="d.-create-a-visualization">d.&nbsp;Create a visualization</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>running_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(running_model, <span class="at">terms =</span> <span class="st">"distance_mi"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> running_data, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> distance_mi, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> pace)) <span class="sc">+</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkcyan"</span>) <span class="sc">+</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> running_preds, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted, </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low, </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.1</span>, </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> running_preds, </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted), </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (mi)"</span>, </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pace (hr:mm:ss)"</span>) <span class="sc">+</span> </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="e.-write-a-caption" class="level2">
 <h2 class="anchored" data-anchor-id="e.-write-a-caption">e. Write a caption</h2>
+<p><strong>Figure 1. Linear regression of running vs.&nbsp;pace with 95% confidence interval</strong> Blue dots represent underlying data of average pace for duration of run. Orange lines outlining ribbon represent the upper and lower confidence interval for predicted linear relationship. Black line represents predicted linear equation. Data was collected by Author and access via CSV download.</p>
 </section>
 <section id="f.-write-about-your-results" class="level2">
 <h2 class="anchored" data-anchor-id="f.-write-about-your-results">f.&nbsp;Write about your results</h2>
+<p>The pace increased as distance increased (linear regression: F(1,17) = 8.573, R<sup>2</sup> = 0.3, p = 0.009, <span class="math inline">\(\alpha\)</span> = 0.05) Based on model predictions for every 1 unit increase in distance we expect to see an increase in pace of 9.6 seconds +/- 3.3 seconds. While the model did show significance the R<sup>2</sup> being 0.3 means that not much of the variation in the model was explained by a linear regression.</p>
 </section>
 <section id="g.-sharing-affective-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="g.-sharing-affective-visualization">g. Sharing affective visualization</h2>

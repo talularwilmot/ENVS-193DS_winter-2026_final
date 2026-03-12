@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Talula Wilmot">
 
 <title>Final</title>
 <style>
@@ -19,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -36,13 +72,73 @@ ul.task-list li input[type="checkbox"] {
 <link href="Final_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Final_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#problem-1.-research-writing" id="toc-problem-1.-research-writing" class="nav-link active" data-scroll-target="#problem-1.-research-writing">Problem 1. Research Writing</a>
+  <ul class="collapse">
+  <li><a href="#a.-transparent-statistical-methods" id="toc-a.-transparent-statistical-methods" class="nav-link" data-scroll-target="#a.-transparent-statistical-methods">a. Transparent statistical methods</a></li>
+  <li><a href="#b.-figure-needed" id="toc-b.-figure-needed" class="nav-link" data-scroll-target="#b.-figure-needed">b. Figure needed</a></li>
+  <li><a href="#c.-suggestions-for-rewriting" id="toc-c.-suggestions-for-rewriting" class="nav-link" data-scroll-target="#c.-suggestions-for-rewriting">c.&nbsp;Suggestions for rewriting</a></li>
+  <li><a href="#d.-interpretation" id="toc-d.-interpretation" class="nav-link" data-scroll-target="#d.-interpretation">d.&nbsp;Interpretation</a></li>
+  </ul></li>
+  <li><a href="#problem-2.-data-visualization" id="toc-problem-2.-data-visualization" class="nav-link" data-scroll-target="#problem-2.-data-visualization">Problem 2. Data visualization</a>
+  <ul class="collapse">
+  <li><a href="#a.-cleaning-and-summarizing" id="toc-a.-cleaning-and-summarizing" class="nav-link" data-scroll-target="#a.-cleaning-and-summarizing">a. cleaning and summarizing</a></li>
+  <li><a href="#b.-understanding-the-data" id="toc-b.-understanding-the-data" class="nav-link" data-scroll-target="#b.-understanding-the-data">b. Understanding the data</a></li>
+  <li><a href="#c.-visualiza-the-data" id="toc-c.-visualiza-the-data" class="nav-link" data-scroll-target="#c.-visualiza-the-data">c.&nbsp;Visualiza the data</a></li>
+  <li><a href="#d.-interpretation-1" id="toc-d.-interpretation-1" class="nav-link" data-scroll-target="#d.-interpretation-1">d.&nbsp;Interpretation</a></li>
+  </ul></li>
+  <li><a href="#problem-3.-data-analysis" id="toc-problem-3.-data-analysis" class="nav-link" data-scroll-target="#problem-3.-data-analysis">Problem 3. Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#a.-comparing-visualizations" id="toc-a.-comparing-visualizations" class="nav-link" data-scroll-target="#a.-comparing-visualizations">a. Comparing visualizations</a></li>
+  <li><a href="#b.-designing-an-analysis" id="toc-b.-designing-an-analysis" class="nav-link" data-scroll-target="#b.-designing-an-analysis">b. Designing an analysis</a></li>
+  <li><a href="#c.-check-any-assumptions-and-run-an-analysis" id="toc-c.-check-any-assumptions-and-run-an-analysis" class="nav-link" data-scroll-target="#c.-check-any-assumptions-and-run-an-analysis">c.&nbsp;Check any assumptions and run an analysis</a></li>
+  <li><a href="#d.-create-a-visualization" id="toc-d.-create-a-visualization" class="nav-link" data-scroll-target="#d.-create-a-visualization">d.&nbsp;Create a visualization</a></li>
+  <li><a href="#e.-write-a-caption" id="toc-e.-write-a-caption" class="nav-link" data-scroll-target="#e.-write-a-caption">e. Write a caption</a></li>
+  <li><a href="#f.-write-about-your-results" id="toc-f.-write-about-your-results" class="nav-link" data-scroll-target="#f.-write-about-your-results">f.&nbsp;Write about your results</a></li>
+  <li><a href="#g.-sharing-affective-visualization" id="toc-g.-sharing-affective-visualization" class="nav-link" data-scroll-target="#g.-sharing-affective-visualization">g. Sharing affective visualization</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -54,6 +150,12 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Talula Wilmot </p>
+          </div>
+  </div>
     
   
     
@@ -64,7 +166,151 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-
+<p><a href="https://github.com/talularwilmot/ENVS-193DS_winter-2026_final">My GitHub Repository</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in packages from library </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data from data folder </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>kelp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/Annual_Kelp_All_Years_20250903.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="problem-1.-research-writing" class="level1">
+<h1>Problem 1. Research Writing</h1>
+<section id="a.-transparent-statistical-methods" class="level2">
+<h2 class="anchored" data-anchor-id="a.-transparent-statistical-methods">a. Transparent statistical methods</h2>
+<p>In part 1, they used a simple linear regression to determine whether precipitation predicts flooded wetland area (testing the relationship between a continuous predictor and a continuous response).</p>
+<p>In part 2, they used an analysis of variance (ANOVA) to test whether the median flooded wetland area differs among the five water year classifications (wet, above normal, below normal, dry, critical drought).</p>
+</section>
+<section id="b.-figure-needed" class="level2">
+<h2 class="anchored" data-anchor-id="b.-figure-needed">b. Figure needed</h2>
+<p>My coworker could make a box plot to accompany the statement in part 2 by visually showing the audience how similar the <strong>medians</strong> across all five water classifications are. On the x-axis would be water year classification: wet, above normal, below normal, dry, critical drought, and on the y-axis would be flooded wetland area displaying the median as well as quantiles and range.</p>
+</section>
+<section id="c.-suggestions-for-rewriting" class="level2">
+<h2 class="anchored" data-anchor-id="c.-suggestions-for-rewriting">c.&nbsp;Suggestions for rewriting</h2>
+<p>Part 1: Flooded wetland area did not show a significant relationship with precipitation. (Linear regression: F() = unknown, r<sup>2</sup> = unknown, p = 0.11, <span class="math inline">\(\alpha\)</span> = significance level).</p>
+<p>Part 2: Median flooded wetland area appeared similar across the five water year classifications (wet, above normal, below normal, dry, critical drought), indicating that flooding does not differ substantially among these conditions. (ANOVA: F() = unknown, p = 0.12, <span class="math inline">\(\alpha\)</span> = significance level).</p>
+</section>
+<section id="d.-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="d.-interpretation">d.&nbsp;Interpretation</h2>
+<p>One additional variable that could influence the flooded area of wetlands would be management practices on each of the 198 land-owner parcels. This would be a categorical variable listing each parcel as something along the lines of (purposefully flooded, naturally flooded) to delineate if there was artificial flooding during critical breeding periods.</p>
+</section>
+</section>
+<section id="problem-2.-data-visualization" class="level1">
+<h1>Problem 2. Data visualization</h1>
+<section id="a.-cleaning-and-summarizing" class="level2">
+<h2 class="anchored" data-anchor-id="a.-cleaning-and-summarizing">a. cleaning and summarizing</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kelp_clean <span class="ot">&lt;-</span> kelp <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> <span class="co">#change the names of columns to remove spaces and capital letters </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"IVEE"</span>, <span class="st">"NAPL"</span>, <span class="st">"CARP"</span>)) <span class="sc">%&gt;%</span> <span class="co">#filter the data to only include these 3 sites</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(date <span class="sc">==</span> <span class="st">"2000-09-22"</span> <span class="sc">&amp;</span> transect <span class="sc">==</span> <span class="st">"6"</span> <span class="sc">&amp;</span> quad <span class="sc">==</span> <span class="st">"40"</span>)) <span class="sc">%&gt;%</span> <span class="co">#filter out the data from date of 2000-09-22, transect 6 and quadrant 40 </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_name =</span> <span class="fu">case_when</span>( <span class="co"># adding a column called site_name change the names of sites to be full name </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  site <span class="sc">==</span> <span class="st">"NAPL"</span> <span class="sc">~</span> <span class="st">"Naples"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  site <span class="sc">==</span> <span class="st">"IVEE"</span> <span class="sc">~</span> <span class="st">"Isla Vista"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  site <span class="sc">==</span> <span class="st">"CARP"</span> <span class="sc">~</span> <span class="st">"Carpinteria"</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_name =</span> <span class="fu">as_factor</span>(site_name),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">site_name =</span> <span class="fu">fct_relevel</span>(site_name,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Naples"</span>, <span class="st">"Isla Vista"</span>, <span class="st">"Carpinteria"</span>)) <span class="sc">%&gt;%</span>  <span class="co"># making sure categorical variables are treated as factors and setting level order </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site_name, year) <span class="sc">%&gt;%</span> <span class="co">#group the data by site_name and year </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_fronds =</span> <span class="fu">mean</span>(fronds)) <span class="sc">%&gt;%</span> <span class="co">#calculate the mean number of fronds in each group we just created </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="co">#ungroup the data after calculating the mean </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by site_name and year.
+ℹ Output is grouped by site_name.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(site_name, year))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(kelp_clean, <span class="at">n =</span> <span class="dv">5</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  site_name    year mean_fronds
+  &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
+1 Naples       2009        5.44
+2 Isla Vista   2007       23.6 
+3 Carpinteria  2002        9.79
+4 Isla Vista   2006       11.6 
+5 Carpinteria  2015        5.03</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kelp_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [77 × 3] (S3: tbl_df/tbl/data.frame)
+ $ site_name  : Factor w/ 3 levels "Naples","Isla Vista",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ year       : int [1:77] 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 ...
+ $ mean_fronds: num [1:77] 1.8947 0.0606 3.0111 9.2596 7.8141 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-understanding-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="b.-understanding-the-data">b. Understanding the data</h2>
+<p>The number for the value of fronds in this filtered line is -9999, representing a missing datasheet for that transect and quadrant. This information was found in the kelp data sheet on line 73, specified in the notes column.</p>
+</section>
+<section id="c.-visualiza-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="c.-visualiza-the-data">c.&nbsp;Visualiza the data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> kelp_clean, <span class="co"># used clean data </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="co"># make x-axis the date</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_fronds, <span class="co"># make the y axis mean frond count</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> site_name)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span><span class="co"># assign color base</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="co"># create a line between individual points </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Isla Vista"</span> <span class="ot">=</span>  <span class="st">"tan"</span>, <span class="co">#color each site specifically </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Naples"</span> <span class="ot">=</span> <span class="st">"darkcyan"</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Carpinteria"</span> <span class="ot">=</span> <span class="st">"gray"</span>)) <span class="sc">+</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="co"># label x-axis </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mean kelp fronds per year"</span>, <span class="co"># label y -axis </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Site"</span>, <span class="co"># assign color by site</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Sites vary in mean kelp fronds per year"</span>) <span class="sc">+</span> <span class="co">#Make Title the same as the example</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co">#use theme with blank background </span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"times new roman"</span>),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="co"># make plot title to the left of figure </span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="dv">10</span>))  <span class="co"># size small enough to fit on page</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="d.-interpretation-1" class="level2">
+<h2 class="anchored" data-anchor-id="d.-interpretation-1">d.&nbsp;Interpretation</h2>
+<p>Isla Vista has the most variable kelp fronds per year showing the highest peaks in the mid 2000’s, mid 2010’s and around 2021, while also maintaining similar lows across all 3 sites showing high fluctuation. Carpinteria tends to have the least variable fronds per year remaining mostly in between the peaks and lows of Naples and Isla Vista with some lower periods around 2020 but no incredibly high years.</p>
+</section>
+</section>
+<section id="problem-3.-data-analysis" class="level1">
+<h1>Problem 3. Data Analysis</h1>
+<section id="a.-comparing-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="a.-comparing-visualizations">a. Comparing visualizations</h2>
+</section>
+<section id="b.-designing-an-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="b.-designing-an-analysis">b. Designing an analysis</h2>
+</section>
+<section id="c.-check-any-assumptions-and-run-an-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="c.-check-any-assumptions-and-run-an-analysis">c.&nbsp;Check any assumptions and run an analysis</h2>
+</section>
+<section id="d.-create-a-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="d.-create-a-visualization">d.&nbsp;Create a visualization</h2>
+</section>
+<section id="e.-write-a-caption" class="level2">
+<h2 class="anchored" data-anchor-id="e.-write-a-caption">e. Write a caption</h2>
+</section>
+<section id="f.-write-about-your-results" class="level2">
+<h2 class="anchored" data-anchor-id="f.-write-about-your-results">f.&nbsp;Write about your results</h2>
+</section>
+<section id="g.-sharing-affective-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="g.-sharing-affective-visualization">g. Sharing affective visualization</h2>
+<p>In class!</p>
+</section>
+</section>
 
 </main>
 <!-- /main column -->

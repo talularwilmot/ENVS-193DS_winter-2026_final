@@ -106,7 +106,7 @@ ggplot(data = kelp_clean, # used clean data
 
 Isla Vista has the most variable kelp fronds per year showing the highest peaks in the mid 2000's, mid 2010's and around 2021, while also maintaining similar lows across all 3 sites showing high fluctuation. Carpinteria tends to have the least variable fronds per year remaining mostly in between the peaks and lows of Naples and Isla Vista with some lower periods around 2020 but no incredibly high years. 
 
-# Problem 3. Data Analysis 
+# Problem 4. Affective and exploratory visualizations 
 
 ## a. Comparing visualizations 
 

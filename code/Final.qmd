@@ -136,29 +136,33 @@ mopl_clean <- mopl %>%
    mutate(used_bin = ifelse(id == "used", 1, 0)) %>%  # convert id to 1/0
   select(used_bin, edgedist, vo_nest) #keep only these columns 
 # model 0: null model
-model0 <- lm(
+model0 <- glm(
   used_bin ~ 1, 
-  data = mopl_clean
+  data = mopl_clean,
+   family = binomial
 )
 
 # model 1: all predictors
 
-model1 <- lm(
+model1 <- glm(
   used_bin ~ edgedist + vo_nest, 
-  data = mopl_clean
+  data = mopl_clean,
+   family = binomial
 )
 # model 2: visual obstruction only 
 
-model2 <- lm(
+model2 <- glm(
   used_bin ~ vo_nest,  
-  data = mopl_clean
+  data = mopl_clean, 
+  family = binomial
 )
 
 # model 3: Colony distance only 
 
-model3 <- lm(
+model3 <- glm(
   used_bin ~ edgedist,  
-  data = mopl_clean
+  data = mopl_clean,
+   family = binomial
 )
 ```
 
@@ -206,10 +210,15 @@ ggplot(data = mopl_clean,
 ```
 
 ## h. Write a caption 
-**Figure 1. Binomial regression of suitable habitat based on obstruction** Blue points represent raw data points of used or unused habitat for Mountain Plovers. Line represents predicted equation for suitable habitat while orange lines outline the 95% confidence interval for those estimates. Data was collected by Duchardt, Courtney; Beck, Jeffrey; Augustine, David (2020). Data from: Mountain Plover habitat selection and nest survival in relation to weather variability and spatial attributes of Black-tailed Prairie Dog disturbance [Dataset]. Dryad. https://doi.org/10.5061/dryad.ttdz08kt7 and accessed via csv download. 
+**Figure 1. Binomial regression of suitable habitat based on obstruction** Blue points represent raw data points of site occupancy or vaccancy for Mountain Plovers. Line represents predicted equation for suitable habitat while orange lines outline the 95% confidence interval for those estimates. Data was collected by Duchardt, Courtney; Beck, Jeffrey; Augustine, David (2020). Data from: Mountain Plover habitat selection and nest survival in relation to weather variability and spatial attributes of Black-tailed Prairie Dog disturbance [Dataset]. Dryad. https://doi.org/10.5061/dryad.ttdz08kt7 and accessed via csv download. 
 
 
 ## i. Calculate model predictions 
+
+```{r}
+gtsummary::tbl_regression(model2, exponentiate = TRUE)
+```
+
 
 ```{r}
 ggpredict(model2, terms = "vo_nest [0]") # use model 2 and gg predict to predict the probability of occupancy at vo index 0 
@@ -217,7 +226,7 @@ ggpredict(model2, terms = "vo_nest [0]") # use model 2 and gg predict to predict
 
 ## j. Interpret your results 
 
-Mountain plovers tend to chose nest sights with no visual obstruction because they have a better peripheral view of potential predators. Prairie dog occupancy often creates lack of obstruction from soil disturbance and consumption of nearby shrubs but there was not 
+Mountain plovers tend to chose nest sights with no visual obstruction because they have a better peripheral view of potential predators. Prairie dog colonies often create lack of obstruction from soil disturbance and consumption of nearby shrubs but AIC was lower for obstruction alone. With a visual obstruction with an index of 0 predicted nest sight occupancy was 0.73 (95% CI: 0.65, 0.80). For every 1 unit increase in visual obstruction the odds of nest side occupancy decrease by a factor of 0.58, (95% CI: 0.47, 0.69, p< 0.001, $\alpha$ = 0.05)
 
 # Problem 4. Affective and exploratory visualizations 
 

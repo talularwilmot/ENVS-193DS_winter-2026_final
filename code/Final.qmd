@@ -123,9 +123,13 @@ Distance to the prairie dog colony edge is also a continuous variable representi
 
 ## c. Table of models 
 Model Number| Visual Obstruction | Distance to colony | Model Description 
+
 0           |                    |                    | null model 
-1           |       X            |        X           | saturated model 
+
+1           |       X            |        X           | saturated model
+
 2           |       X            |                    | visual obstruction only
+
 3           |                    |        X           | colony dist. only 
 
 ## d. Run the models 

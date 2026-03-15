@@ -255,11 +255,11 @@ window.Quarto = {
 <pre><code># A tibble: 5 × 3
   site_name    year mean_fronds
   &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
-1 Carpinteria  2015        5.03
-2 Isla Vista   2024       10.3 
-3 Isla Vista   2002        3.47
-4 Carpinteria  2022        9.52
-5 Naples       2017        4.74</code></pre>
+1 Naples       2011        5.32
+2 Isla Vista   2003        6.14
+3 Carpinteria  2025       12.9 
+4 Isla Vista   2013        9.36
+5 Isla Vista   2014       19.9 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kelp_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -312,7 +312,7 @@ window.Quarto = {
 <h1>Problem 3. Data Analysis</h1>
 <section id="a.-response-variable" class="level2">
 <h2 class="anchored" data-anchor-id="a.-response-variable">a. Response variable</h2>
-<p>In this data set the 1’s and 0’s represent shrub and subshrub cover, a 1 means that along a transect a shrub or subshrub intercepted with the transect at a 1 meter incriment, 0 means that there was no interception. Biologically this helps the researchers obtain an estimate for the vegetation cover of their study area.</p>
+<p>In this data set the 1’s and 0’s represent nest site occupancy by Mountain plover. A 1 means that there was a nest present and a 0 means that there was no nest present.</p>
 </section>
 <section id="b.-purpose-of-study" class="level2">
 <h2 class="anchored" data-anchor-id="b.-purpose-of-study">b. Purpose of study</h2>
@@ -383,10 +383,6 @@ model3  2 386.1351</code></pre>
 <h2 class="anchored" data-anchor-id="f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model2)) <span class="co">#run diagnostic checks </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in newton(lsp = lsp, X = G$X, y = G$y, Eb = G$Eb, UrS = G$UrS, L = G$L,
-: Fitting terminated with step failure - check results carefully</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -399,31 +395,31 @@ model3  2 386.1351</code></pre>
 <section id="g.-visualize-the-model-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="g.-visualize-the-model-predictions">g. Visualize the model predictions</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model2_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model2, <span class="at">terms =</span> <span class="st">"vo_nest"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model2_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model2, <span class="at">terms =</span> <span class="st">"vo_nest"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Data were 'prettified'. Consider using `terms="vo_nest [all]"` to get
   smooth plots.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mopl_clean, </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> vo_nest, </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> used_bin)) <span class="sc">+</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkcyan"</span>) <span class="sc">+</span> </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> model2_preds, </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted, </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low, </span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high),</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.1</span>, </span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span> </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> model2_preds, </span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted), </span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>( <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Visual obstruction (height and density)"</span>, </span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Nest site used (0 = no, 1 = yes)"</span>) <span class="sc">+</span> </span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mopl_clean, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> vo_nest, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> used_bin)) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkcyan"</span>) <span class="sc">+</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> model2_preds, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low, </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.1</span>, </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> model2_preds, </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted), </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>( <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Visual obstruction (height and density)"</span>, </span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Nest site used (0 = no, 1 = yes)"</span>) <span class="sc">+</span> </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -440,7 +436,7 @@ model3  2 386.1351</code></pre>
 <section id="i.-calculate-model-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="i.-calculate-model-predictions">i. Calculate model predictions</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_regression</span>(model2, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_regression</span>(model2, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Registered S3 methods overwritten by 'broom':
   method        from 
@@ -448,23 +444,23 @@ model3  2 386.1351</code></pre>
   nobs.multinom MuMIn</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="ljrweputax" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ljrweputax table {
+<div id="bmfmahecbk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bmfmahecbk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ljrweputax thead, #ljrweputax tbody, #ljrweputax tfoot, #ljrweputax tr, #ljrweputax td, #ljrweputax th {
+#bmfmahecbk thead, #bmfmahecbk tbody, #bmfmahecbk tfoot, #bmfmahecbk tr, #bmfmahecbk td, #bmfmahecbk th {
   border-style: none;
 }
 
-#ljrweputax p {
+#bmfmahecbk p {
   margin: 0;
   padding: 0;
 }
 
-#ljrweputax .gt_table {
+#bmfmahecbk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -490,12 +486,12 @@ model3  2 386.1351</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ljrweputax .gt_caption {
+#bmfmahecbk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ljrweputax .gt_title {
+#bmfmahecbk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -507,7 +503,7 @@ model3  2 386.1351</code></pre>
   border-bottom-width: 0;
 }
 
-#ljrweputax .gt_subtitle {
+#bmfmahecbk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -519,7 +515,7 @@ model3  2 386.1351</code></pre>
   border-top-width: 0;
 }
 
-#ljrweputax .gt_heading {
+#bmfmahecbk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -531,13 +527,13 @@ model3  2 386.1351</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ljrweputax .gt_bottom_border {
+#bmfmahecbk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ljrweputax .gt_col_headings {
+#bmfmahecbk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -552,7 +548,7 @@ model3  2 386.1351</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ljrweputax .gt_col_heading {
+#bmfmahecbk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -572,7 +568,7 @@ model3  2 386.1351</code></pre>
   overflow-x: hidden;
 }
 
-#ljrweputax .gt_column_spanner_outer {
+#bmfmahecbk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -584,15 +580,15 @@ model3  2 386.1351</code></pre>
   padding-right: 4px;
 }
 
-#ljrweputax .gt_column_spanner_outer:first-child {
+#bmfmahecbk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ljrweputax .gt_column_spanner_outer:last-child {
+#bmfmahecbk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ljrweputax .gt_column_spanner {
+#bmfmahecbk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -604,11 +600,11 @@ model3  2 386.1351</code></pre>
   width: 100%;
 }
 
-#ljrweputax .gt_spanner_row {
+#bmfmahecbk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ljrweputax .gt_group_heading {
+#bmfmahecbk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -634,7 +630,7 @@ model3  2 386.1351</code></pre>
   text-align: left;
 }
 
-#ljrweputax .gt_empty_group_heading {
+#bmfmahecbk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -649,15 +645,15 @@ model3  2 386.1351</code></pre>
   vertical-align: middle;
 }
 
-#ljrweputax .gt_from_md > :first-child {
+#bmfmahecbk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ljrweputax .gt_from_md > :last-child {
+#bmfmahecbk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ljrweputax .gt_row {
+#bmfmahecbk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -676,7 +672,7 @@ model3  2 386.1351</code></pre>
   overflow-x: hidden;
 }
 
-#ljrweputax .gt_stub {
+#bmfmahecbk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -689,7 +685,7 @@ model3  2 386.1351</code></pre>
   padding-right: 5px;
 }
 
-#ljrweputax .gt_stub_row_group {
+#bmfmahecbk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -703,15 +699,15 @@ model3  2 386.1351</code></pre>
   vertical-align: top;
 }
 
-#ljrweputax .gt_row_group_first td {
+#bmfmahecbk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ljrweputax .gt_row_group_first th {
+#bmfmahecbk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ljrweputax .gt_summary_row {
+#bmfmahecbk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -721,16 +717,16 @@ model3  2 386.1351</code></pre>
   padding-right: 5px;
 }
 
-#ljrweputax .gt_first_summary_row {
+#bmfmahecbk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ljrweputax .gt_first_summary_row.thick {
+#bmfmahecbk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ljrweputax .gt_last_summary_row {
+#bmfmahecbk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -740,7 +736,7 @@ model3  2 386.1351</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ljrweputax .gt_grand_summary_row {
+#bmfmahecbk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -750,7 +746,7 @@ model3  2 386.1351</code></pre>
   padding-right: 5px;
 }
 
-#ljrweputax .gt_first_grand_summary_row {
+#bmfmahecbk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -760,7 +756,7 @@ model3  2 386.1351</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ljrweputax .gt_last_grand_summary_row_top {
+#bmfmahecbk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -770,11 +766,11 @@ model3  2 386.1351</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ljrweputax .gt_striped {
+#bmfmahecbk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ljrweputax .gt_table_body {
+#bmfmahecbk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -783,7 +779,7 @@ model3  2 386.1351</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ljrweputax .gt_footnotes {
+#bmfmahecbk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -797,7 +793,7 @@ model3  2 386.1351</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ljrweputax .gt_footnote {
+#bmfmahecbk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -806,7 +802,7 @@ model3  2 386.1351</code></pre>
   padding-right: 5px;
 }
 
-#ljrweputax .gt_sourcenotes {
+#bmfmahecbk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -820,7 +816,7 @@ model3  2 386.1351</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ljrweputax .gt_sourcenote {
+#bmfmahecbk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -828,72 +824,72 @@ model3  2 386.1351</code></pre>
   padding-right: 5px;
 }
 
-#ljrweputax .gt_left {
+#bmfmahecbk .gt_left {
   text-align: left;
 }
 
-#ljrweputax .gt_center {
+#bmfmahecbk .gt_center {
   text-align: center;
 }
 
-#ljrweputax .gt_right {
+#bmfmahecbk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ljrweputax .gt_font_normal {
+#bmfmahecbk .gt_font_normal {
   font-weight: normal;
 }
 
-#ljrweputax .gt_font_bold {
+#bmfmahecbk .gt_font_bold {
   font-weight: bold;
 }
 
-#ljrweputax .gt_font_italic {
+#bmfmahecbk .gt_font_italic {
   font-style: italic;
 }
 
-#ljrweputax .gt_super {
+#bmfmahecbk .gt_super {
   font-size: 65%;
 }
 
-#ljrweputax .gt_footnote_marks {
+#bmfmahecbk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ljrweputax .gt_asterisk {
+#bmfmahecbk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ljrweputax .gt_indent_1 {
+#bmfmahecbk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ljrweputax .gt_indent_2 {
+#bmfmahecbk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ljrweputax .gt_indent_3 {
+#bmfmahecbk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ljrweputax .gt_indent_4 {
+#bmfmahecbk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ljrweputax .gt_indent_5 {
+#bmfmahecbk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ljrweputax .katex-display {
+#bmfmahecbk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ljrweputax div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bmfmahecbk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -926,7 +922,7 @@ model3  2 386.1351</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(model2, <span class="at">terms =</span> <span class="st">"vo_nest [0]"</span>) <span class="co"># use model 2 and gg predict to predict the probability of occupancy at vo index 0 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(model2, <span class="at">terms =</span> <span class="st">"vo_nest [0]"</span>) <span class="co"># use model 2 and gg predict to predict the probability of occupancy at vo index 0 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Predicted probabilities of used_bin
 
@@ -963,12 +959,12 @@ vo_nest | Predicted |     95% CI
 <section id="run-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="run-analysis">run analysis</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>personal_clean <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(Personal) <span class="co">#clean the names of personal data to only include lower case and remove spaces </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>running_data <span class="ot">&lt;-</span> personal_clean <span class="sc">%&gt;%</span> <span class="co">#use to personal_clean data and filter to only include rows with the workout type equal to running </span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(workout_type <span class="sc">==</span> <span class="st">"Running"</span>) <span class="co">#filter the data to only include running observations</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>running_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(pace) <span class="sc">~</span> distance_mi, <span class="co">#use pace as dependent and milage as predictor</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> running_data) <span class="co">#select from filtered data set </span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(running_model) <span class="co">#display summary </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>personal_clean <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(Personal) <span class="co">#clean the names of personal data to only include lower case and remove spaces </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>running_data <span class="ot">&lt;-</span> personal_clean <span class="sc">%&gt;%</span> <span class="co">#use to personal_clean data and filter to only include rows with the workout type equal to running </span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(workout_type <span class="sc">==</span> <span class="st">"Running"</span>) <span class="co">#filter the data to only include running observations</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>running_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(pace) <span class="sc">~</span> distance_mi, <span class="co">#use pace as dependent and milage as predictor</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> running_data) <span class="co">#select from filtered data set </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(running_model) <span class="co">#display summary </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -994,8 +990,8 @@ F-statistic: 8.573 on 1 and 17 DF,  p-value: 0.009388</code></pre>
 <section id="check-assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="check-assumptions">check assumptions</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#show plots in 2 by 2 grid </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(running_model) <span class="co">#create diagnostic plots for our running model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#show plots in 2 by 2 grid </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(running_model) <span class="co">#create diagnostic plots for our running model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1009,25 +1005,25 @@ F-statistic: 8.573 on 1 and 17 DF,  p-value: 0.009388</code></pre>
 <section id="d.-create-a-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="d.-create-a-visualization">d.&nbsp;Create a visualization</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>running_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(running_model, <span class="at">terms =</span> <span class="st">"distance_mi"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> running_data, </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> distance_mi, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> pace)) <span class="sc">+</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkcyan"</span>) <span class="sc">+</span> </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> running_preds, </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted, </span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low, </span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high),</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.1</span>, </span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span> </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> running_preds, </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted), </span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (mi)"</span>, </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pace (hr:mm:ss)"</span>) <span class="sc">+</span> </span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>running_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(running_model, <span class="at">terms =</span> <span class="st">"distance_mi"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> running_data, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> distance_mi, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> pace)) <span class="sc">+</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkcyan"</span>) <span class="sc">+</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> running_preds, </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted, </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low, </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high),</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.1</span>, </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span> </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> running_preds, </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted), </span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (mi)"</span>, </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pace (hr:mm:ss)"</span>) <span class="sc">+</span> </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

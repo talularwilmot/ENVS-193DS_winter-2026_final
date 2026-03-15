@@ -113,7 +113,7 @@ Isla Vista has the most variable kelp fronds per year showing the highest peaks 
 
 ## a. Response variable
 
-In this data set the 1's and 0's represent shrub and subshrub cover, a 1 means that along a transect a shrub or subshrub intercepted with the transect at a 1 meter incriment, 0 means that there was no interception. Biologically this helps the researchers obtain an estimate for the vegetation cover of their study area. 
+In this data set the 1's and 0's represent nest site occupancy by Mountain plover. A 1 means that there was a nest present and a 0 means that there was no nest present. 
 
 ## b. Purpose of study  
 

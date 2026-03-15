@@ -25,6 +25,7 @@ library(ggeffects)
 #read in data from data folder 
 kelp <- read.csv("~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/Annual_Kelp_All_Years_20250903.csv")
 Personal <- read_csv("~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/My Data ES 193 - Sheet1.csv")
+mopl <- read_csv("~/Desktop/ENVS 193DS/git/Final/ENVS-193DS_winter-2026_final/data/MOPL_nest-site_selection_Duchardt_et_al._2019.csv")
 ```
 
 
@@ -105,6 +106,60 @@ ggplot(data = kelp_clean, # used clean data
 ## d. Interpretation 
 
 Isla Vista has the most variable kelp fronds per year showing the highest peaks in the mid 2000's, mid 2010's and around 2021, while also maintaining similar lows across all 3 sites showing high fluctuation. Carpinteria tends to have the least variable fronds per year remaining mostly in between the peaks and lows of Naples and Isla Vista with some lower periods around 2020 but no incredibly high years. 
+
+# Problem 3. Data Analysis 
+
+## a. Response variable
+
+In this data set the 1's and 0's represent shrub and subshrub cover, a 1 means that along a transect a shrub or subshrub intercepted with the transect at a 1 meter incriment, 0 means that there was no interception. Biologically this helps the researchers obtain an estimate for the vegetation cover of their study area. 
+
+## b. Purpose of study  
+
+Visual obstruction is a continuous variable that measures vegetation structure (height and density) around a potential nest site. As visual obstruction increases, the probability of Mountain Plover nest site use would likely decrease because plovers prefer areas with short, sparse vegetation and more open ground so they can detect predators and maintain visibility around the nest. This information was found in the Methods section under Adult mountain plover density - Data collection, paragraph 3. 
+
+Distance to the prairie dog colony edge is also a continuous variable representing how far a potential nest site is from the boundary of a prairie dog colony. As distance from the colony edge increases, the probability of nest site use may decrease, prairie dogs clip vegetation and disturb soil allowing for greater visibility of predators. This information was found in the Methods section in Table 1. 
+
+## c. Table of models 
+Model Number| Visual Obstruction | Distance to colony | Model Description 
+0           |                    |                    | null model 
+1           |       X            |        X           | saturated model 
+2           |       X            |                    | visual obstruction only
+3           |                    |        X           | colony dist. only 
+
+## d. Run the models 
+
+```{r}
+mopl_clean <- mopl %>%  
+  clean_names() %>%  # clean the names of the columns to remove capitals and spaces 
+   mutate(used_bin = ifelse(id == "used", 1, 0)) %>%  # convert id to 1/0
+  select(used_bin, edgedist, vo_nest) #keep only these columns 
+# model 0: null model
+model0 <- lm(
+  used_bin ~ 1, 
+  data = mopl_clean
+)
+
+# model 1: all predictors
+
+model1 <- lm(
+  used_bin ~ edgedist, vo_nest, 
+  data = mopl_clean
+)
+# model 2: visual obstruction only 
+
+model2 <- lm(
+  used_bin ~ vo_nest,  
+  data = mopl_clean
+)
+
+# model 3: Colony distance only 
+
+model3 <- lm(
+  used_bin ~ edgedist,  
+  data = mopl_clean
+)
+```
+
 
 # Problem 4. Affective and exploratory visualizations 
 

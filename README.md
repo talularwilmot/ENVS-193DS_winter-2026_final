@@ -14,7 +14,7 @@ Additional supporting files may include figures and images.
 
 ### Rendered Output
 
-The rendered HTML version of the project can be viewed here:
+The rendered HTML version of the project can be viewed here: https://talularwilmot.github.io/ENVS-193DS_winter-2026_final/code/Final.html
 
 
 
